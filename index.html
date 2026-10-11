@@ -193,6 +193,28 @@ dialog .row2 .b-add{background:linear-gradient(135deg,var(--p),var(--p2));color:
 @keyframes fall{to{transform:translateY(110vh) translateX(40px) rotate(360deg)}}
 
 
+.sl{position:relative}.sl .row.scroll{padding:2px 56px 6px 56px}.next.pr{right:auto;left:8px}
+#cp{width:min(1040px,96vw);height:min(620px,88vh);max-height:88vh}
+.cbody{display:flex;gap:18px;flex:1;min-height:0;padding:18px 22px}
+#cl{flex:1;overflow-y:auto;padding:0 8px 0 0;display:flex;flex-direction:column;gap:12px;min-width:0}
+.ci{display:flex;align-items:stretch;gap:14px;border:2px solid var(--line);border-radius:14px;padding:12px;position:relative;border-bottom:2px solid var(--line)}
+.ce{width:88px;height:88px;font-size:48px;border-radius:12px;background:var(--soft);display:flex;align-items:center;justify-content:center;flex:none}
+.cn{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:6px;padding-right:6px}
+.cn .name{font-size:15px}.cn small{color:var(--mut)}
+.qty{display:flex;align-items:center;gap:6px;border-left:2px solid var(--line);border-right:2px solid var(--line);padding:0 14px}
+.qty input{width:54px;text-align:center;font-size:22px;font-weight:800;border:1px solid var(--line);border-radius:10px;padding:9px 0;background:var(--card);color:var(--ink);outline:none}
+.qty input:focus{border-color:var(--p)}
+.cprice{min-width:130px;display:flex;flex-direction:column;justify-content:center;align-items:flex-end;padding-right:24px}
+.cprice small{color:var(--mut)}.cprice b{color:var(--p);font-size:18px}
+.ci .del{position:absolute;top:6px;right:8px}
+.sum{width:300px;flex:none;display:flex}
+.sbox{flex:1;border:2px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px;min-height:0}
+#sl{flex:1;overflow-y:auto;font-size:13px;min-height:0}
+.sli{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.sli span:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sli span:last-child{white-space:nowrap;color:var(--mut)}
+.sbox hr{width:100%;border:0;border-top:2px solid var(--ink);margin:4px 0}
+.sbox .cb{flex-direction:column}
+@media(max-width:760px){.cbody{flex-direction:column;overflow-y:auto}.sum{width:auto}.sbox{min-height:260px}.ci{flex-wrap:wrap}.qty{border:0;padding:0}}
 #snow{display:none!important}.snw{display:none}
 @media(max-width:1000px){.wrap{flex-direction:column;padding:12px}aside{width:auto}.ads{min-height:80px}.hero{grid-template-columns:1fr}.wp{display:none}
  header{flex-wrap:wrap;padding:10px 14px}.sw{order:9;flex-basis:100%;max-width:none}
@@ -231,9 +253,7 @@ dialog .row2 .b-add{background:linear-gradient(135deg,var(--p),var(--p2));color:
         <button class="wbtn" id="wbp"></button><button class="wbtn o" id="wbc"></button>
         <div class="wpl">🚚 · ↩️ · 🔒 · 💬</div></div>
     </div>
-    <div class="qc" id="qc"></div>
-    <div class="cps" id="cps"></div>
-    <h2 class="t" id="sales-t">⚡ Sales <span class="cd" id="cd"></span></h2>
+        <h2 class="t" id="sales-t">⚡ Sales <span class="cd" id="cd"></span></h2>
     <div class="box"><div class="row scroll" id="sales"></div><button class="next" id="nx">›</button></div>
     <h2 class="t" id="rank"><span id="rank-t"></span></h2>
     <div class="rks" id="rks"></div>
@@ -241,8 +261,8 @@ dialog .row2 .b-add{background:linear-gradient(135deg,var(--p),var(--p2));color:
     <h2 class="t" id="news-t">New products</h2>
     <div class="box">
       <div class="tools"><div id="chips" style="display:flex;gap:8px;flex-wrap:wrap"></div><select id="sort"></select></div>
-      <div class="grid" id="news"></div>
-      <button class="more" id="more"></button>
+      <div class="sl"><button class="next pr" id="pv2">‹</button><div class="row scroll" id="news"></div><button class="next" id="nx2">›</button></div>
+      <button class="more" id="more" style="display:none"></button>
     </div>
   </main>
 </div>
@@ -257,8 +277,13 @@ dialog .row2 .b-add{background:linear-gradient(135deg,var(--p),var(--p2));color:
 </footer>
 <div id="ov"><div id="cp">
   <div class="ch"><span id="ct"></span><button class="cx" data-x="1">✕</button></div>
-  <div id="cl"></div>
-  <div class="cf"><div id="cbal" class="rate" style="text-align:right"></div><div id="tot"></div><div class="cb"><button id="clr" data-c="clear"></button><button id="pay" data-c="pay"></button></div></div>
+  <div class="cbody">
+    <div id="cl"></div>
+    <div class="sum"><div class="sbox">
+      <div id="sl"></div><hr><div id="tot"></div><div id="cbal" class="rate" style="text-align:right"></div>
+      <div class="cb"><button id="clr" data-c="clear"></button><button id="pay" data-c="pay"></button></div>
+    </div></div>
+  </div>
 </div></div>
 <div id="pv"><div id="pp">
   <div class="ch"><span id="pt2"></span><button class="cx" data-px="1">✕</button></div>
@@ -283,16 +308,16 @@ dialog .row2 .b-add{background:linear-gradient(135deg,var(--p),var(--p2));color:
 
 <script>
 const T={
-ua:{cats:"Категорії",all:"Усі",info:"Про товар",add:"У кошик",ph:"Пошук за назвою...",none:"Нічого не знайдено",added:"Додано в кошик",cart:"🛒 Кошик",empty:"Кошик порожній",total:"Разом",clear:"Очистити",pay:"Оформити",thanks:"Дякуємо за замовлення!",poor:"Недостатньо коштів на балансі",more:"Показати ще",
+ua:{cats:"Категорії",all:"Усі",info:"Про товар",add:"У кошик",ph:"Пошук за назвою...",none:"Нічого не знайдено",added:"Додано в кошик",cart:"🛒 Кошик",empty:"Кошик порожній",total:"Сума замовлення",clear:"Очистити",pay:"Оформити замовлення",thanks:"Дякуємо за замовлення!",poor:"Недостатньо коштів на балансі",more:"Показати ще",
  top:"🚚 Безкоштовна доставка від {d}  ·  🍂 Осінні знижки до -35%",promo:"Осінній промокод:",
  sorts:["За замовчуванням","Дешевші спочатку","Дорожчі спочатку","За рейтингом"],
  f:[["🚚","Швидка доставка","1–3 дні по Україні"],["↩️","Повернення","30 днів без питань"],["🔒","Безпечна оплата","Захист платежів"],["💬","Підтримка 24/7","Завжди на зв'язку"]],
- f1:"Покупцям",f2:"Контакти",f3:"Новини та акції",fa:"Магазин, де знайдеться все: від техніки до товарів для дому.",sub:"Ви підписані!",price:"Ціна",rev:"відгуків",rank:"🏆 Топ рейтингу",sold:"продано",ship:"Безкоштовна доставка",hi:"Привіт",claim:"Забрати",off:"від",hot:"Гаряче",newb:"Новинки",prof2:"👤 Профіль",mycart:"🛒 Кошик",bal:"Баланс",prof:"👤 Профіль",avatar:"Аватарка",upl:"📷 Завантажити своє фото",nickl:"Нікнейм",curl:"Валюта",orders:"Замовлень",spent:"Витрачено",wish:"В обраному",cartn:"У кошику",topup:"Поповнити баланс на ",snow:"Листя",next:"До рівня",max:"Максимальний рівень!"},
-en:{cats:"Categories",all:"All",info:"Details",add:"Add to cart",ph:"Search by name...",none:"Nothing found",added:"Added to cart",cart:"🛒 Cart",empty:"Your cart is empty",total:"Total",clear:"Clear",pay:"Checkout",thanks:"Thank you for your order!",poor:"Not enough balance",more:"Show more",
+ f1:"Покупцям",f2:"Контакти",f3:"Новини та акції",fa:"Магазин, де знайдеться все: від техніки до товарів для дому.",sub:"Ви підписані!",price:"Ціна",rev:"відгуків",sku:"Артикул",rank:"🏆 Топ рейтингу",sold:"продано",ship:"Безкоштовна доставка",hi:"Привіт",claim:"Забрати",off:"від",hot:"Гаряче",newb:"Новинки",prof2:"👤 Профіль",mycart:"🛒 Кошик",bal:"Баланс",prof:"👤 Профіль",avatar:"Аватарка",upl:"📷 Завантажити своє фото",nickl:"Нікнейм",curl:"Валюта",orders:"Замовлень",spent:"Витрачено",wish:"В обраному",cartn:"У кошику",topup:"Поповнити баланс на ",snow:"Листя",next:"До рівня",max:"Максимальний рівень!"},
+en:{cats:"Categories",all:"All",info:"Details",add:"Add to cart",ph:"Search by name...",none:"Nothing found",added:"Added to cart",cart:"🛒 Cart",empty:"Your cart is empty",total:"Order total",clear:"Clear",pay:"Checkout",thanks:"Thank you for your order!",poor:"Not enough balance",more:"Show more",
  top:"🚚 Free delivery from {d}  ·  🍂 Autumn sale up to -35%",promo:"Autumn promo code:",
  sorts:["Default","Price: low to high","Price: high to low","By rating"],
  f:[["🚚","Fast delivery","1–3 days nationwide"],["↩️","Returns","30 days, no questions"],["🔒","Secure payment","Protected payments"],["💬","Support 24/7","Always here to help"]],
- f1:"Customers",f2:"Contacts",f3:"News & offers",fa:"A store with everything: from gadgets to home goods.",sub:"You're subscribed!",price:"Price",rev:"reviews",rank:"🏆 Top rated",sold:"sold",ship:"Free shipping",hi:"Hi",claim:"Claim",off:"over",hot:"Hot",newb:"New",prof2:"👤 Profile",mycart:"🛒 Cart",bal:"Balance",prof:"👤 Profile",avatar:"Avatar",upl:"📷 Upload your photo",nickl:"Nickname",curl:"Currency",orders:"Orders",spent:"Spent",wish:"Wishlist",cartn:"In cart",topup:"Top up balance by ",snow:"Leaves",next:"To level",max:"Max level reached!"}
+ f1:"Customers",f2:"Contacts",f3:"News & offers",fa:"A store with everything: from gadgets to home goods.",sub:"You're subscribed!",price:"Price",rev:"reviews",sku:"SKU",rank:"🏆 Top rated",sold:"sold",ship:"Free shipping",hi:"Hi",claim:"Claim",off:"over",hot:"Hot",newb:"New",prof2:"👤 Profile",mycart:"🛒 Cart",bal:"Balance",prof:"👤 Profile",avatar:"Avatar",upl:"📷 Upload your photo",nickl:"Nickname",curl:"Currency",orders:"Orders",spent:"Spent",wish:"Wishlist",cartn:"In cart",topup:"Top up balance by ",snow:"Leaves",next:"To level",max:"Max level reached!"}
 };
 const CATS=[["all","🛍️"],["tech","💻","Техніка","Electronics"],["home","🏠","Дім","Home"],["fashion","👕","Одяг","Fashion"],["sport","🏀","Спорт","Sport"],["beauty","💄","Краса","Beauty"]];
 const BANN=[
@@ -363,15 +388,12 @@ function render(){
   let list=ALL.slice(S.length).filter(p=>match(p)&&(cat=="all"||p.c==cat));
   const so=$("sort").value;
   if(so=="1")list.sort((a,b)=>a.p-b.p);if(so=="2")list.sort((a,b)=>b.p-a.p);if(so=="3")list.sort((a,b)=>b.r-a.r);
-  $("news").innerHTML=list.length?list.slice(0,shown).map(p=>card(p,0)).join(""):`<div class="empty">${t.none}</div>`;
-  $("more").style.display=list.length>shown?"block":"none";$("more").textContent=t.more;
+  $("news").innerHTML=list.length?list.map(p=>card(p,0)).join(""):`<div class="empty">${t.none}</div>`;
+  $("more").style.display="none";$("more").textContent=t.more;
   $("search").placeholder=t.ph;$("ctitle").textContent=t.cats;$("top").textContent=t.top.replace("{d}",fmt(12));$("pt").textContent=t.promo;
   $("cats").innerHTML=CATS.map(c=>`<button class="cat ${c[0]==cat?"on":""}" data-cat="${c[0]}"><span>${c[1]}</span>${cn(c)}<em>›</em></button>`).join("");
   $("chips").innerHTML=CATS.map(c=>`<button class="chip ${c[0]==cat?"on":""}" data-cat="${c[0]}">${cn(c)}</button>`).join("");
   const sv=$("sort").value;$("sort").innerHTML=t.sorts.map((x,i)=>`<option value="${i}">${x}</option>`).join("");$("sort").value=sv||"0";
-  $("qc").innerHTML=CATS.slice(1).map(c=>`<button data-cat="${c[0]}"><span>${c[1]}</span>${cn(c)}</button>`).join("")+
-    `<button data-go="sales-t"><span>🔥</span>${t.hot}</button><button data-go="news-t"><span>🆕</span>${t.newb}</button><button data-go="rank"><span>🏆</span>Top</button>`;
-  $("cps").innerHTML=[[5,50],[10,120],[20,300]].map(c=>`<div class="cp"><div><b>${fmt(c[0])}</b><small>${t.off} ${fmt(c[1])}</small></div><button data-cp="${c[0]}">${claimed.has(String(c[0]))?"✓":t.claim}</button></div>`).join("");
   $("rank-t").textContent=t.rank;
   $("rks").innerHTML=[...ALL].sort((a,b)=>b.r-a.r||b.v-a.v).slice(0,5).map((p,i)=>`<button class="rk" data-i="${p.id}"><span class="no">${i+1}</span><span class="re">${p.i}</span><b>${p.n}</b><small>${fmt(p.p)}</small></button>`).join("");
   $("feats").innerHTML=t.f.map(f=>`<div class="feat"><span>${f[0]}</span><div><b>${f[1]}</b><small>${f[2]}</small></div></div>`).join("");
@@ -389,8 +411,13 @@ function bump(el){el.classList.remove("bump");void el.offsetWidth;el.classList.a
 function renderCart(){
   const t=T[lang],it=Object.entries(cart).map(([id,q])=>({p:ALL[id],q}));
   const cnt=it.reduce((a,i)=>a+i.q,0),tot=it.reduce((a,i)=>a+i.p.p*i.q,0);
-  $("cnt").textContent=cnt;$("ct").textContent=t.cart;renderUser();
-  $("cl").innerHTML=it.length?it.map(i=>`<div class="ci"><span class="ce">${i.p.i}</span><div class="cn"><div class="name">${i.p.n}</div><div class="price">${fmt(i.p.p)}</div></div><div class="qty"><button data-c="minus" data-n="${i.p.id}">−</button><b>${i.q}</b><button data-c="plus" data-n="${i.p.id}">+</button></div><button class="del" data-c="del" data-n="${i.p.id}">✕</button></div>`).join(""):`<div class="empty">${t.empty}</div>`;
+  $("cnt").textContent=cnt;$("ct").textContent=t.cart+(cnt?" ("+cnt+")":"");renderUser();
+  $("cl").innerHTML=it.length?it.map(i=>`<div class="ci"><div class="ce">${i.p.i}</div>
+    <div class="cn"><div class="name" title="${i.p.n}">${i.p.n}</div><small>${t.sku}: MS-${1000+i.p.id}</small></div>
+    <div class="qty"><button data-c="minus" data-n="${i.p.id}">−</button><input type="text" inputmode="numeric" value="${i.q}" data-q="${i.p.id}"><button data-c="plus" data-n="${i.p.id}">+</button></div>
+    <div class="cprice"><small>${fmt(i.p.p)} × ${i.q}</small><b>${fmt(i.p.p*i.q)}</b></div>
+    <button class="del" data-c="del" data-n="${i.p.id}">✕</button></div>`).join(""):`<div class="empty">${t.empty}</div>`;
+  $("sl").innerHTML=it.map(i=>`<div class="sli"><span>${i.p.n}</span><span>${fmt(i.p.p)} × ${i.q}</span></div>`).join("");
   $("tot").textContent=t.total+": "+fmt(tot);$("clr").textContent=t.clear;$("pay").textContent=t.pay;
 }
 function addItem(id){cart[id]=(cart[id]||0)+1;renderCart();bump($("cart"));toast("✓ "+T[lang].added)}
@@ -532,6 +559,10 @@ function tick(){const n=new Date(),e=new Date(n);e.setHours(24,0,0,0);const ms=e
   $("cd").innerHTML=(lang=="ua"?"Закінчується через":"Ends in")+" "+[Math.floor(ms/36e5),Math.floor(ms%36e5/6e4),Math.floor(ms%6e4/1e3)].map(x=>`<b>${z(x)}</b>`).join(":")}
 tick();setInterval(tick,1000);
 $("wbp").onclick=()=>$("user").click();$("wbc").onclick=()=>$("cart").click();
+$("nx2").onclick=()=>{const r=$("news");if(r.scrollLeft+r.clientWidth>=r.scrollWidth-5)r.scrollLeft=0;else r.scrollLeft+=400};
+$("pv2").onclick=()=>{$("news").scrollLeft-=400};
+$("cl").addEventListener("change",e=>{const i=e.target.closest("[data-q]");if(!i)return;
+  const v=Math.min(99,parseInt(i.value)||0);if(v<1)delete cart[i.dataset.q];else cart[i.dataset.q]=v;renderCart()});
 
 function applyTheme(){document.documentElement.dataset.theme=theme;$("theme").textContent=theme=="dark"?"☀️":"🌙"}
 $("theme").onclick=()=>{theme=theme=="dark"?"light":"dark";applyTheme();save()};
