@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background: #03a9f4;
+            color: #fff;
+            text-align: center;
+            font-size: 32px;
+            padding: 25px 0;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            min-height: 0;
+        }
+
+        aside {
+            background: #22b14c;
+            color: #fff;
+            font-size: 32px;
+            padding: 60px 40px;
+            width: 260px;
+        }
+
+        .content {
+            flex: 1;
+            background: #fff;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 15px;
+            padding: 10px;
+        }
+
+        .card {
+            background: #c8c8c8;
+        }
+
+        footer {
+            background: #fff200;
+            color: #fff;
+            text-align: center;
+            font-size: 32px;
+            padding: 35px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>HEADER</header>
+    <main>
+        <aside>ASIDE LEFT</aside>
+        <div class="content">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+        </div>
+        <aside>ASIDE RIGHT</aside>
+    </main>
+    <footer>FOOTER</footer>
+</body>
+</html>

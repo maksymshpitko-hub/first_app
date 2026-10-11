@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<title>SHOP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{color-scheme:light;--blue:#1e63d6;--blue2:#3b8cff;--green:#2f9e44;--green2:#51cf66;--yellow:#fcc419;--ink:#1f2937;--bg:#f4f6fb}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+button{font-family:inherit}
+
+/* Шапка */
+header{position:sticky;top:0;z-index:10;background:linear-gradient(90deg,var(--blue),var(--blue2));display:flex;align-items:center;gap:14px;padding:12px 24px;color:#fff;box-shadow:0 4px 14px rgba(30,99,214,.35)}
+.logo{font-weight:800;font-size:22px;letter-spacing:1px;background:#fff;color:var(--blue);padding:6px 14px;border-radius:10px}
+#search{flex:1;min-width:90px;padding:11px 18px;border:0;border-radius:999px;font-size:15px;outline:none;box-shadow:inset 0 1px 3px rgba(0,0,0,.15)}
+#search:focus{box-shadow:0 0 0 3px rgba(255,255,255,.5)}
+.lang{display:flex;gap:6px}
+.lang button{background:#e03131;color:#fff;border:2px solid transparent;border-radius:8px;padding:6px 11px;cursor:pointer;font-weight:700;opacity:.65;transition:.2s}
+.lang button.on,.lang button:hover{opacity:1;border-color:#fff}
+.cart{display:flex;align-items:center;gap:6px;border:2px solid rgba(255,255,255,.8);border-radius:10px;padding:6px 12px;font-weight:700;white-space:nowrap}
+.cart.bump{animation:bump .35s}
+@keyframes bump{50%{transform:scale(1.18);background:rgba(255,255,255,.25)}}
+.user{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.ava{width:36px;height:36px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.4)}
+.bal{background:rgba(255,255,255,.2);padding:5px 11px;border-radius:999px;font-weight:700}
+
+/* Каркас */
+.wrap{display:flex;flex:1}
+aside{width:240px;flex:none;background:linear-gradient(180deg,var(--green2),var(--green));padding:20px 16px;display:flex;flex-direction:column;gap:12px;color:#fff}
+aside h3{margin:0 0 4px;font-size:18px}
+.cat{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.55);border-radius:12px;padding:13px 14px;cursor:pointer;font-weight:600;transition:.2s}
+.cat:hover{background:#fff;color:var(--green);transform:translateX(4px)}
+.ads{margin-top:auto;min-height:190px;border-radius:16px;background:linear-gradient(135deg,#1b6e2e,#0b4a1b);display:flex;align-items:center;justify-content:center;text-align:center;font-weight:800;font-size:22px;letter-spacing:2px;line-height:1.4;box-shadow:0 8px 20px rgba(0,0,0,.25)}
+main{flex:1;min-width:0;padding:24px}
+
+/* Баннер */
+.banner{position:relative;overflow:hidden;height:230px;border-radius:20px;color:#fff;display:flex;align-items:center;padding:0 90px;background:linear-gradient(135deg,#7048e8,#b197fc);box-shadow:0 12px 28px rgba(112,72,232,.35);transition:background .4s}
+.banner::before,.banner::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.12)}
+.banner::before{width:260px;height:260px;right:-60px;top:-80px}
+.banner::after{width:160px;height:160px;right:140px;bottom:-70px}
+.banner h2{margin:0;font-size:42px;font-weight:800;letter-spacing:1px;position:relative}
+.banner p{margin:8px 0 0;font-size:24px;position:relative;opacity:.95}
+.arr{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.9);color:#5f3dc4;font-size:26px;line-height:1;cursor:pointer;transition:.2s;box-shadow:0 3px 10px rgba(0,0,0,.2)}
+.arr:hover{background:#fff;transform:translateY(-50%) scale(1.1)}
+.arr.l{left:18px}.arr.r{right:18px}
+.dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:2}
+.dots i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.5);transition:.2s}
+.dots i.on{background:#fff;width:22px;border-radius:5px}
+
+/* Секции */
+h2.t{margin:32px 0 12px;font-size:24px;display:flex;align-items:center;gap:10px}
+h2.t::before{content:"";width:6px;height:26px;border-radius:3px;background:var(--blue)}
+.box{background:#fff;border-radius:20px;padding:18px;position:relative;box-shadow:0 6px 20px rgba(31,41,55,.08)}
+.row{display:flex;gap:16px}
+.row.scroll{overflow-x:auto;scroll-behavior:smooth;padding:4px 56px 8px 4px;scrollbar-width:none}
+.row.scroll::-webkit-scrollbar{display:none}
+.row.wrapr{flex-wrap:wrap}
+.next{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:44px;height:64px;border:0;border-radius:12px;background:var(--blue);color:#fff;font-size:28px;cursor:pointer;box-shadow:0 6px 14px rgba(30,99,214,.4);transition:.2s}
+.next:hover{background:#174fb0}
+
+/* Карточка */
+.card{position:relative;flex:none;width:190px;background:#fff;border:1px solid #e5e8f0;border-radius:16px;padding:10px;display:flex;flex-direction:column;gap:9px;transition:.25s}
+.card:hover{transform:translateY(-5px);box-shadow:0 12px 24px rgba(31,41,55,.15);border-color:#c7d5f5}
+.ph{height:125px;border-radius:12px;background:linear-gradient(135deg,#eef2ff,#dbe4ff);display:flex;align-items:center;justify-content:center;font-size:54px}
+.tag{position:absolute;top:16px;left:16px;background:#e03131;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px}
+.btns{display:flex;gap:6px}
+.btns button{flex:1;padding:7px 4px;font-size:12px;font-weight:600;border-radius:8px;cursor:pointer;transition:.2s}
+.b-info{background:#fff;border:1px solid var(--blue);color:var(--blue)}
+.b-info:hover{background:#edf3ff}
+.b-add{background:var(--green);border:1px solid var(--green);color:#fff}
+.b-add:hover{background:#237a35}
+.b-add:active{transform:scale(.94)}
+.name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+.price{color:var(--green);font-weight:800;font-size:18px}
+.old{color:#9aa1ad;text-decoration:line-through;font-weight:400;font-size:14px;margin-right:8px}
+.empty{padding:18px;color:#6b7280}
+
+footer{background:var(--yellow);text-align:center;padding:22px;font-weight:800;letter-spacing:1px;box-shadow:0 -4px 14px rgba(0,0,0,.08)}
+
+/* Окно и уведомление */
+dialog{border:0;border-radius:18px;padding:26px;max-width:340px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+dialog::backdrop{background:rgba(15,23,42,.5)}
+dialog h3{margin:0 0 10px}
+dialog .big{font-size:60px;text-align:center}
+dialog button{margin-top:12px;width:100%;padding:10px;border:0;border-radius:10px;background:var(--blue);color:#fff;font-weight:700;cursor:pointer}
+#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,90px);background:#111827;color:#fff;padding:12px 22px;border-radius:999px;transition:.3s;opacity:0;z-index:20}
+#toast.show{transform:translate(-50%,0);opacity:1}
+
+@media(max-width:800px){
+  .wrap{flex-direction:column}
+  aside{width:auto}.ads{min-height:80px;margin-top:0}
+  header{flex-wrap:wrap;padding:10px 14px}
+  .banner{padding:0 64px;height:190px}.banner h2{font-size:28px}.banner p{font-size:18px}
+  main{padding:14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">LOGO</div>
+  <input id="search" type="search">
+  <div class="lang"><button id="ua" class="on">UA</button><button id="en">EN</button></div>
+  <div class="cart" id="cart">🛒 <span id="cnt">0</span></div>
+  <div class="user"><span>John</span><div class="ava"></div><span class="bal">1250</span></div>
+</header>
+
+<div class="wrap">
+  <aside>
+    <h3 data-k="cats"></h3>
+    <div class="cat">Cat 1</div><div class="cat">Cat 2</div><div class="cat">Cat 3</div>
+    <div class="ads">SHOP<br>SALES<br>ADS</div>
+  </aside>
+
+  <main>
+    <div class="banner" id="banner">
+      <button class="arr l" id="bl">‹</button>
+      <div><h2>SHOP SALES</h2><p>New Year 2027</p></div>
+      <button class="arr r" id="br">›</button>
+      <div class="dots" id="dots"></div>
+    </div>
+
+    <h2 class="t">Sales</h2>
+    <div class="box"><div class="row scroll" id="sales"></div><button class="next" id="nx">›</button></div>
+
+    <h2 class="t">New products</h2>
+    <div class="box"><div class="row wrapr" id="news"></div></div>
+  </main>
+</div>
+
+<footer>Footer</footer>
+
+<dialog id="dlg"><div class="big" id="di"></div><h3 id="dt"></h3><p id="dp"></p><button onclick="dlg.close()">OK</button></dialog>
+<div id="toast"></div>
+
+<script>
+const T={
+  ua:{cats:"Категорії",info:"Про товар",add:"У кошик",ph:"Пошук за назвою...",none:"Нічого не знайдено",price:"Ціна: ",added:"Додано в кошик"},
+  en:{cats:"Categories",info:"Details",add:"Add to cart",ph:"Search by name...",none:"Nothing found",price:"Price: ",added:"Added to cart"}
+};
+let lang="ua",cart=0,slide=0;
+
+// Товари: [иконка, название, цена, старая цена (необязательно)]
+const sales=[
+  ["🎧","Бездротові навушники з шумозаглушенням",100,150],
+  ["⌚","Розумний годинник Sport Pro Ultra Edition",250,320],
+  ["📷","Фотокамера",480,600],
+  ["🎮","Ігровий геймпад",60,80],
+  ["🔊","Колонка Bluetooth",90,120],
+  ["💡","Розумна лампа",25,40],
+  ["🖱️","Миша",30,45]
+];
+const news=[
+  ["📱","Смартфон",300,350],
+  ["💻","Ноутбук",900],
+  ["⌨️","Клавіатура",50,70],
+  ["🖥️","Монітор",200],
+  ["🔋","Павербанк",40,55]
+];
+const colors=[
+  "linear-gradient(135deg,#7048e8,#b197fc)",
+  "linear-gradient(135deg,#9c36b5,#e599f7)",
+  "linear-gradient(135deg,#4c6ef5,#91a7ff)"
+];
+
+const $=id=>document.getElementById(id);
+
+function card(p){
+  const old=p[3]?`<span class="old">${p[3]}</span>`:"";
+  const tag=p[3]?`<span class="tag">-${Math.round((1-p[2]/p[3])*100)}%</span>`:"";
+  return `<div class="card">${tag}<div class="ph">${p[0]}</div>
+    <div class="btns"><button class="b-info" data-i="${p[1]}">${T[lang].info}</button><button class="b-add" data-a="1">${T[lang].add}</button></div>
+    <div class="name" title="${p[1]}">${p[1]}</div>
+    <div class="price">${old}${p[2]}</div></div>`;
+}
+
+function render(){
+  const q=$("search").value.trim().toLowerCase();
+  for(const [id,arr] of [["sales",sales],["news",news]]){
+    const r=arr.filter(p=>p[1].toLowerCase().includes(q));
+    $(id).innerHTML=r.length?r.map(card).join(""):`<div class="empty">${T[lang].none}</div>`;
+  }
+  document.querySelector("[data-k=cats]").textContent=T[lang].cats;
+  $("search").placeholder=T[lang].ph;
+  document.documentElement.lang=lang;
+}
+
+function toast(t){const e=$("toast");e.textContent=t;e.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("show"),1500)}
+
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;
+  if(b.dataset.a){
+    cart++;$("cnt").textContent=cart;
+    $("cart").classList.remove("bump");void $("cart").offsetWidth;$("cart").classList.add("bump");
+    toast("✓ "+T[lang].added);
+  }
+  if(b.dataset.i){
+    const p=[...sales,...news].find(x=>x[1]===b.dataset.i);
+    $("di").textContent=p[0];$("dt").textContent=p[1];
+    $("dp").textContent=T[lang].price+p[2]+(p[3]?" (было "+p[3]+")":"");
+    $("dlg").showModal();
+  }
+});
+
+// Баннер
+$("dots").innerHTML=colors.map(()=>"<i></i>").join("");
+function setSlide(d){
+  slide=(slide+d+colors.length)%colors.length;
+  $("banner").style.background=colors[slide];
+  [...$("dots").children].forEach((x,i)=>x.classList.toggle("on",i===slide));
+}
+$("bl").onclick=()=>setSlide(-1);
+$("br").onclick=()=>setSlide(1);
+setSlide(0);
+
+// Стрелка у Sales
+$("nx").onclick=()=>{
+  const s=$("sales");
+  if(s.scrollLeft+s.clientWidth>=s.scrollWidth-5)s.scrollLeft=0;else s.scrollLeft+=400;
+};
+
+// Язык и поиск
+$("ua").onclick=()=>{lang="ua";$("ua").classList.add("on");$("en").classList.remove("on");render()};
+$("en").onclick=()=>{lang="en";$("en").classList.add("on");$("ua").classList.remove("on");render()};
+$("search").oninput=render;
+
+render();
+</script>
+</body>
+</html>
