@@ -193,12 +193,17 @@ dialog .row2 .b-add{background:linear-gradient(135deg,var(--p),var(--p2));color:
 @keyframes fall{to{transform:translateY(110vh) translateX(40px) rotate(360deg)}}
 
 
+.hero{grid-template-columns:1fr}
+.wp{flex-direction:row;align-items:center;gap:18px;text-align:left;padding:14px 22px;flex-wrap:wrap}
+.wpa{width:58px;height:58px;font-size:32px}.wpb{font-size:24px}
+.wbtn{width:auto;padding:11px 26px}.wpl{margin:0 0 0 auto;border:0;padding:0;width:auto;font-size:16px}
+@media(max-width:1000px){.wp{display:flex}}
 .sl{position:relative}.sl .row.scroll{padding:2px 56px 6px 56px}.next.pr{right:auto;left:8px}
-#cp{width:min(1040px,96vw);height:min(620px,88vh);max-height:88vh}
+#cp{width:min(1240px,97vw);height:min(760px,93vh);max-height:93vh}
 .cbody{display:flex;gap:18px;flex:1;min-height:0;padding:18px 22px}
 #cl{flex:1;overflow-y:auto;padding:0 8px 0 0;display:flex;flex-direction:column;gap:12px;min-width:0}
 .ci{display:flex;align-items:stretch;gap:14px;border:2px solid var(--line);border-radius:14px;padding:12px;position:relative;border-bottom:2px solid var(--line)}
-.ce{width:88px;height:88px;font-size:48px;border-radius:12px;background:var(--soft);display:flex;align-items:center;justify-content:center;flex:none}
+.ce{width:96px;height:96px;font-size:52px;border-radius:12px;background:var(--soft);display:flex;align-items:center;justify-content:center;flex:none}
 .cn{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:6px;padding-right:6px}
 .cn .name{font-size:15px}.cn small{color:var(--mut)}
 .qty{display:flex;align-items:center;gap:6px;border-left:2px solid var(--line);border-right:2px solid var(--line);padding:0 14px}
@@ -207,7 +212,7 @@ dialog .row2 .b-add{background:linear-gradient(135deg,var(--p),var(--p2));color:
 .cprice{min-width:130px;display:flex;flex-direction:column;justify-content:center;align-items:flex-end;padding-right:24px}
 .cprice small{color:var(--mut)}.cprice b{color:var(--p);font-size:18px}
 .ci .del{position:absolute;top:6px;right:8px}
-.sum{width:300px;flex:none;display:flex}
+.sum{width:350px;flex:none;display:flex}.qty,.cprice,.ce{flex:none}.ci{min-width:0}
 .sbox{flex:1;border:2px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px;min-height:0}
 #sl{flex:1;overflow-y:auto;font-size:13px;min-height:0}
 .sli{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px dashed var(--line)}
@@ -241,7 +246,7 @@ dialog .row2 .b-add{background:linear-gradient(135deg,var(--p),var(--p2));color:
     <div class="ads">SHOP<br>SALES<br>ADS</div>
   </aside>
   <main>
-    <div class="hero">
+        <div class="hero">
       <div class="banner" id="banner">
         <button class="arr l" id="bl">‹</button>
         <div style="position:relative;z-index:2"><h2 id="bh"></h2><p id="bp"></p><button class="cta" id="bc"></button></div>
@@ -249,14 +254,9 @@ dialog .row2 .b-add{background:linear-gradient(135deg,var(--p),var(--p2));color:
         <button class="arr r" id="br">›</button>
         <div class="dots" id="dots"></div>
       </div>
-      <div class="wp"><div class="ava wpa" id="wpa"></div><b id="wpn"></b><div class="wpb" id="wpb"></div>
-        <button class="wbtn" id="wbp"></button><button class="wbtn o" id="wbc"></button>
-        <div class="wpl">🚚 · ↩️ · 🔒 · 💬</div></div>
     </div>
-        <h2 class="t" id="sales-t">⚡ Sales <span class="cd" id="cd"></span></h2>
+    <h2 class="t" id="sales-t">⚡ Sales <span class="cd" id="cd"></span></h2>
     <div class="box"><div class="row scroll" id="sales"></div><button class="next" id="nx">›</button></div>
-    <h2 class="t" id="rank"><span id="rank-t"></span></h2>
-    <div class="rks" id="rks"></div>
     <div class="feats" id="feats"></div>
     <h2 class="t" id="news-t">New products</h2>
     <div class="box">
@@ -320,11 +320,6 @@ en:{cats:"Categories",all:"All",info:"Details",add:"Add to cart",ph:"Search by n
  f1:"Customers",f2:"Contacts",f3:"News & offers",fa:"A store with everything: from gadgets to home goods.",sub:"You're subscribed!",price:"Price",rev:"reviews",sku:"SKU",rank:"🏆 Top rated",sold:"sold",ship:"Free shipping",hi:"Hi",claim:"Claim",off:"over",hot:"Hot",newb:"New",prof2:"👤 Profile",mycart:"🛒 Cart",bal:"Balance",prof:"👤 Profile",avatar:"Avatar",upl:"📷 Upload your photo",nickl:"Nickname",curl:"Currency",orders:"Orders",spent:"Spent",wish:"Wishlist",cartn:"In cart",topup:"Top up balance by ",snow:"Leaves",next:"To level",max:"Max level reached!"}
 };
 const CATS=[["all","🛍️"],["tech","💻","Техніка","Electronics"],["home","🏠","Дім","Home"],["fashion","👕","Одяг","Fashion"],["sport","🏀","Спорт","Sport"],["beauty","💄","Краса","Beauty"]];
-const BANN=[
- {bg:"linear-gradient(120deg,#ff4747,#ff8a00)",h:"SHOP SALES",p:"Autumn 2026 · -35%",e:"🛍️"},
- {bg:"linear-gradient(120deg,#7b2ff7,#ff4d8d)",h:"MaksaiShop",p:"Нові надходження / New arrivals",e:"🎁"},
- {bg:"linear-gradient(120deg,#0072ff,#00b4ff)",h:"-35%",p:"Техніка та гаджети / Tech & gadgets",e:"🎧"}
-];
 
 // Товари: [иконка, название, цена, старая цена или 0, категория, описание]
 const S=[
@@ -394,12 +389,10 @@ function render(){
   $("cats").innerHTML=CATS.map(c=>`<button class="cat ${c[0]==cat?"on":""}" data-cat="${c[0]}"><span>${c[1]}</span>${cn(c)}<em>›</em></button>`).join("");
   $("chips").innerHTML=CATS.map(c=>`<button class="chip ${c[0]==cat?"on":""}" data-cat="${c[0]}">${cn(c)}</button>`).join("");
   const sv=$("sort").value;$("sort").innerHTML=t.sorts.map((x,i)=>`<option value="${i}">${x}</option>`).join("");$("sort").value=sv||"0";
-  $("rank-t").textContent=t.rank;
-  $("rks").innerHTML=[...ALL].sort((a,b)=>b.r-a.r||b.v-a.v).slice(0,5).map((p,i)=>`<button class="rk" data-i="${p.id}"><span class="no">${i+1}</span><span class="re">${p.i}</span><b>${p.n}</b><small>${fmt(p.p)}</small></button>`).join("");
   $("feats").innerHTML=t.f.map(f=>`<div class="feat"><span>${f[0]}</span><div><b>${f[1]}</b><small>${f[2]}</small></div></div>`).join("");
   $("f1").textContent=t.f1;$("f2").textContent=t.f2;$("f3").textContent=t.f3;$("fa").textContent=t.fa;
   $("bc").textContent=lang=="ua"?"Дивитись":"Shop now";
-  $("wbp").textContent=t.prof2;$("wbc").textContent=t.mycart;
+  
   $("wcnt").textContent=wish.size;document.documentElement.lang=lang;
   renderCart();
 }
@@ -464,6 +457,12 @@ $("wl").onclick=()=>toast("❤ "+wish.size);
 $("more").onclick=()=>{shown+=12;render()};
 $("sort").onchange=render;
 
+
+const BANN=[
+ {bg:"linear-gradient(120deg,#ff4747,#ff8a00)",h:"SHOP SALES",p:"Autumn 2026 · -35%",e:"🛍️"},
+ {bg:"linear-gradient(120deg,#7b2ff7,#ff4d8d)",h:"MaksaiShop",p:"Нові надходження / New arrivals",e:"🎁"},
+ {bg:"linear-gradient(120deg,#0072ff,#00b4ff)",h:"-35%",p:"Техніка та гаджети / Tech & gadgets",e:"🎧"}
+];
 // Баннер
 $("dots").innerHTML=BANN.map(()=>"<i></i>").join("");
 function setSlide(d){
@@ -512,7 +511,7 @@ function renderUser(){
   $("lvl").textContent=`${L[1]} ${lang=="ua"?L[3]:L[2]} · ${cur}`;
   $("bal").textContent="💰 "+fmt(bal);
   $("cbal").textContent=t.bal+": "+fmt(bal);
-  paint($("ava"));paint($("wpa"));$("wpn").textContent=T[lang].hi+", "+nick;$("wpb").textContent=fmt(bal);
+  paint($("ava"));
   $("curs").innerHTML=CURS.map(c=>`<button class="${c==cur?"on":""}" data-cur="${c}" title="${c}">${SYM[c]}</button>`).join("");
 }
 function renderProfile(){
@@ -558,7 +557,7 @@ for(let i=0;i<16;i++){const x=document.createElement("span");x.className="sn";x.
 function tick(){const n=new Date(),e=new Date(n);e.setHours(24,0,0,0);const ms=e-n,z=x=>String(x).padStart(2,0);
   $("cd").innerHTML=(lang=="ua"?"Закінчується через":"Ends in")+" "+[Math.floor(ms/36e5),Math.floor(ms%36e5/6e4),Math.floor(ms%6e4/1e3)].map(x=>`<b>${z(x)}</b>`).join(":")}
 tick();setInterval(tick,1000);
-$("wbp").onclick=()=>$("user").click();$("wbc").onclick=()=>$("cart").click();
+
 $("nx2").onclick=()=>{const r=$("news");if(r.scrollLeft+r.clientWidth>=r.scrollWidth-5)r.scrollLeft=0;else r.scrollLeft+=400};
 $("pv2").onclick=()=>{$("news").scrollLeft-=400};
 $("cl").addEventListener("change",e=>{const i=e.target.closest("[data-q]");if(!i)return;
